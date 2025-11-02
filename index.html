@@ -1,13 +1,34 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <title>Hello Electron</title>
+    <style>
+      body {
+        margin: 0;
+        background: transparent; /* 关键 */
+      }
+      .windows {
+        border: 6px solid #888; /* 窗口边框 */
+        -webkit-app-region: drag; /* 允许拖动窗口 */
+      }
+
+      .closeBtn {
+        -webkit-app-region: no-drag; /* 按钮区域不可拖动 */
+      }
+
+      .textbox {
+        /* 渐变文字：在支持的浏览器中使用背景裁剪实现文字渐变，保留回退色 */
+        background: linear-gradient(90deg, #ff7a18 0%, #af002d 50%, #319197 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 6px rgba(0, 0, 0, 0.5); /* 可选：轻微阴影提高可读性 */
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello Electron 👋</h1>
-    <script>
-      console.log("Renderer process running");
-    </script>
+    <div class="windows">
+      <h1 class="textbox">透明无边框窗口 👻</h1>
+      <button class="closeBtn" onclick="window.close()">关闭</button>
+    </div>
   </body>
 </html>
