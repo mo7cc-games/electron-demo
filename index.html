@@ -11,7 +11,7 @@
         -webkit-app-region: drag; /* 允许拖动窗口 */
       }
 
-      .closeBtn {
+      .btn {
         -webkit-app-region: no-drag; /* 按钮区域不可拖动 */
       }
 
@@ -28,7 +28,9 @@
   <body>
     <div class="windows">
       <h1 class="textbox">透明无边框窗口 👻</h1>
-      <button class="closeBtn" onclick="window.close()">关闭</button>
+      <button class="btn" onclick="window.electronAPI.controlWindow('minimize')">最小化</button>
+      <button class="btn" onclick="window.electronAPI.controlWindow('maximize')">最大化</button>
+      <button class="btn" onclick="window.electronAPI.controlWindow('close')">关闭</button>
     </div>
   </body>
 </html>
