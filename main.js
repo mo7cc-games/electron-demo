@@ -8,11 +8,12 @@ const __dirname = path.dirname(__filename);
 
 const iconPath = path.join(__dirname, './assets/appicon.png');
 
-let win = null;
+let mainWin = null;
+let childWin = null;
 let tray = null;
 
 function createWindow() {
-  win = new BrowserWindow({
+  mainWin = new BrowserWindow({
     width: 800,
     height: 600,
     frame: false, // 去掉系统边框
@@ -25,7 +26,7 @@ function createWindow() {
     },
   });
 
-  win.loadFile('index.html'); // 加载本地页面
+  mainWin.loadFile('index.html'); // 加载本地页面
 
   tray = new Tray(iconPath);
   // 定义菜单
@@ -33,14 +34,14 @@ function createWindow() {
     {
       label: '显示窗口',
       click: () => {
-        win.show();
-        win.focus();
+        mainWin.show();
+        mainWin.focus();
       },
     },
     {
       label: '隐藏窗口',
       click: () => {
-        win.hide();
+        mainWin.hide();
       },
     },
     { type: 'separator' },
@@ -54,10 +55,10 @@ function createWindow() {
   tray.setToolTip('我的 Electron 应用');
   tray.setContextMenu(contextMenu);
   tray.on('click', () => {
-    if (win.isVisible()) {
-      win.hide();
+    if (mainWin.isVisible()) {
+      mainWin.hide();
     } else {
-      win.show();
+      mainWin.show();
     }
   });
 }
@@ -71,31 +72,54 @@ app.on('window-all-closed', () => {
 });
 
 function ActionSize() {
-  if (!win) {
+  if (!mainWin) {
     return;
   }
-  if (win.isMaximized()) {
-    win.unmaximize();
+  if (mainWin.isMaximized()) {
+    mainWin.unmaximize();
   } else {
-    win.maximize();
+    mainWin.maximize();
   }
 }
 
 ipcMain.on('window-control', (event, action) => {
-  if (!win) {
+  if (!mainWin) {
     return;
   }
   switch (action) {
     case 'minimize':
-      win.minimize();
+      mainWin.minimize();
       break;
     case 'maximize':
       ActionSize();
       break;
     case 'close':
-      win.close();
+      mainWin.close();
       break;
     default:
       break;
+  }
+});
+
+// 监听渲染进程请求，打开子窗口
+ipcMain.on('open-child', () => {
+  if (!childWin) {
+    childWin = new BrowserWindow({
+      width: 400,
+      height: 300,
+      parent: mainWin, // 设置父窗口（可选）
+      modal: false, // true = 模态窗口（阻塞父窗口）
+      webPreferences: {
+        preload: path.join(__dirname, 'preload.js'),
+      },
+    });
+
+    childWin.loadFile('index.html');
+
+    childWin.on('closed', () => {
+      childWin = null;
+    });
+  } else {
+    childWin.focus();
   }
 });

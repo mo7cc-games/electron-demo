@@ -3,6 +3,9 @@ import { contextBridge, ipcRenderer } from 'electron';
 contextBridge.exposeInMainWorld('electronAPI', {
   // action: "minimize" | "maximize" | "close"
   controlWindow(action) {
-    return ipcRenderer.send('window-control', action);
+    ipcRenderer.send('window-control', action);
+  },
+  openChild() {
+    ipcRenderer.send('open-child');
   },
 });

@@ -31,6 +31,12 @@
       <button class="btn" onclick="window.electronAPI.controlWindow('minimize')">最小化</button>
       <button class="btn" onclick="window.electronAPI.controlWindow('maximize')">最大化</button>
       <button class="btn" onclick="window.electronAPI.controlWindow('close')">关闭</button>
+      <button class="btn" onclick="OpenNewWindow()">打开新窗口</button>
     </div>
   </body>
 </html>
+<script>
+  function OpenNewWindow() {
+    window.electronAPI.openChild();
+  }
+</script>
