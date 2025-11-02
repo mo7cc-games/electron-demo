@@ -1,0 +1,31 @@
+{
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    ".gitignore": ".gitattributes, .gitmodules, .stignore, .nomedia",
+    "go.mod": "go.sum",
+    "README.md": "AGENTS.md",
+    "package.json": "*.json, go.mod, config.*, *config.ts, eslint*, .prettier*, *.d.ts, *lock, *json.md5"
+  },
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  },
+  "[go.mod]": {
+    "editor.defaultFormatter": "golang.go"
+  },
+  "gopls": {
+    "formatting.gofumpt": true,
+    "ui.semanticTokens": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "eslint.enable": true,
+  "files.eol": "\n",
+  "files.exclude": {
+    "node_modules": true
+  },
+  "cSpell.words": []
+}
