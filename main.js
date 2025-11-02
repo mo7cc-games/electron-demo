@@ -9,8 +9,8 @@ const __dirname = path.dirname(__filename);
 const iconPath = path.join(__dirname, './assets/appicon.png');
 
 let mainWin = null;
-let childWin = null;
 let tray = null;
+let childWin = null;
 
 function createWindow() {
   mainWin = new BrowserWindow({
@@ -103,13 +103,17 @@ ipcMain.on('window-control', (event, action) => {
 
 // 监听渲染进程请求，打开子窗口
 ipcMain.on('open-child', () => {
+  console.log('打开窗口');
   if (!childWin) {
     childWin = new BrowserWindow({
       width: 400,
       height: 300,
-      parent: mainWin, // 设置父窗口（可选）
+      frame: false, // 去掉系统边框
+      transparent: true, // 背景透明
+      resizable: true, // 是否允许缩放
       modal: false, // true = 模态窗口（阻塞父窗口）
       webPreferences: {
+        nodeIntegration: true, // 允许在渲染进程使用 Node API
         preload: path.join(__dirname, 'preload.js'),
       },
     });
