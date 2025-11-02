@@ -15,3 +15,11 @@ package-lock.json
 bun.lockb
 bun.lock
 .pnp.*
+
+
+# Build / compiled output
+build/Release
+dist
+.next
+.nuxt
+.vuepress/dist
