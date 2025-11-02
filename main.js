@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+import { app, BrowserWindow } from 'electron';
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -9,11 +9,13 @@ function createWindow() {
     },
   });
 
-  win.loadFile("index.html"); // 加载本地页面
+  win.loadFile('index.html'); // 加载本地页面
 }
 
 app.whenReady().then(createWindow);
 
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") app.quit();
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
 });
