@@ -1,9 +1,12 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
-import * as path from 'path';
+import { app, Menu, Tray, BrowserWindow, ipcMain, nativeImage } from 'electron';
+import path from 'path';
 import { fileURLToPath } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 let win = null;
+let tray = null;
 
 function createWindow() {
   win = new BrowserWindow({
@@ -19,6 +22,43 @@ function createWindow() {
   });
 
   win.loadFile('index.html'); // 加载本地页面
+
+  // 创建托盘图标：优先使用项目根目录下的 appicon.png，若不存在则使用一个最小的透明 PNG 数据作为回退
+  const iconPath = path.join(__dirname, 'appicon.png');
+
+  tray = new Tray(iconPath);
+  // 定义菜单
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: '显示窗口',
+      click: () => {
+        win.show();
+        win.focus();
+      },
+    },
+    {
+      label: '隐藏窗口',
+      click: () => {
+        win.hide();
+      },
+    },
+    { type: 'separator' },
+    {
+      label: '退出',
+      click: () => {
+        app.quit();
+      },
+    },
+  ]);
+  tray.setToolTip('我的 Electron 应用');
+  tray.setContextMenu(contextMenu);
+  tray.on('click', () => {
+    if (win.isVisible()) {
+      win.hide();
+    } else {
+      win.show();
+    }
+  });
 }
 
 app.whenReady().then(createWindow);
