@@ -12,7 +12,9 @@
     "node": ">=24"
   },
   "scripts": {
-    "dev": "electron ."
+    "dev": "electron .",
+    "clear-dir": "bun run script/clear_dir.ts",
+    "git-sync": "bun run script/git_sync.ts"
   },
   "devDependencies": {
     "electron": "^39.0.0",
