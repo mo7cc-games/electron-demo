@@ -18,6 +18,12 @@
     "clear-dir": "ts-node script/clear_dir.ts",
     "git-sync": "ts-node script/git_sync.ts"
   },
+  "build": {
+    "appId": "cc.mo7.electron-demo",
+    "productName": "electron-demo",
+    "copyright": "Copyright © 2025",
+    "asar": true
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.0",
     "@types/node": "^24.10.0",
