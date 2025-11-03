@@ -4,7 +4,7 @@
     ".gitignore": ".gitattributes, .gitmodules, .stignore, .nomedia",
     "go.mod": "go.sum",
     "README.md": "AGENTS.md",
-    "package.json": "*.json, go.mod, config.*, *config.ts, eslint*, .prettier*, *.d.ts, *lock, *json.md5"
+    "package.json": "*.json, *.yaml, go.mod, config.*, *config.ts, eslint*, .prettier*, *.d.ts, *lock, *json.md5"
   },
   "[go]": {
     "editor.defaultFormatter": "golang.go"
