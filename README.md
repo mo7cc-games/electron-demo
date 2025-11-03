@@ -6,8 +6,8 @@
 
 ```bash
 
-bun install
+npm install
 
-bun run dev
+npm run dev
 
 ```
